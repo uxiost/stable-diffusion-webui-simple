@@ -24,6 +24,17 @@
 }
 
 #txt2img_generate, #img2img_generate {
+    --tw-border-opacity: 1;
+    /* border-color: rgb(255 216 180 / var(--tw-border-opacity)); */
+    border-color: rgb(255 255 255 / var(--tw-border-opacity));
+    /* --tw-gradient-from: rgb(255 216 180 / 0.7); */
+    --tw-gradient-from: #000000;
+    --tw-gradient-to: rgb(255 216 180 / 0);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+    /* --tw-gradient-to: rgb(255 176 102 / 0.8); */
+    --tw-text-opacity: 1;
+    background-color: #000000;
+    color: white;
     min-height: 4.5em;
 }
 
