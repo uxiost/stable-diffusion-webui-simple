@@ -453,7 +453,7 @@ def my_create_toprow(is_img2img):
             with gr.Row():
                 with gr.Column(scale=80):
                     with gr.Row():
-                        prompt = gr.Textbox(label="Prompt", elem_id=f"{id_part}_prompt", show_label=False, placeholder='"Short sleeved", "Zip", "Belt in the style of Versace" ...', lines=2)
+                        prompt = gr.Textbox(label="Prompt", elem_id=f"{id_part}_prompt", show_label=False, placeholder='For example "Long sleeved", "High neck with zip", "Belt in the style of Versace" or "Balenciage leather bag"', lines=2)
 
                 with gr.Column(scale=1, elem_id="roll_col"):
                     # roll = gr.Button(value=art_symbol, elem_id="roll", visible=len(shared.artist_db.artists) > 0)
@@ -674,7 +674,7 @@ def create_ui(wrap_gradio_gpu_call):
             token_button.click(fn=update_token_counter, inputs=[txt2img_prompt, steps], outputs=[token_counter])
 
     with gr.Blocks(analytics_enabled=False) as img2img_interface:
-        gr.HTML(value="<p>Write your prompt: </p>")
+        gr.HTML(value="<p>Describe what you want to add. Be specific and creative! </p>")
         # img2img_prompt, roll, img2img_prompt_style, img2img_negative_prompt, img2img_prompt_style2, submit, img2img_interrogate, img2img_prompt_style_apply, img2img_save_style, paste, token_counter, token_button = create_toprow(is_img2img=True)
         img2img_prompt, roll, img2img_prompt_style, img2img_negative_prompt, img2img_prompt_style2, submit, img2img_interrogate, img2img_prompt_style_apply, img2img_save_style, paste, token_counter, token_button = my_create_toprow(is_img2img=True)
         with gr.Row(elem_id='img2img_progress_row'):
@@ -685,7 +685,7 @@ def create_ui(wrap_gradio_gpu_call):
                 progressbar = gr.HTML(elem_id="img2img_progressbar")
                 img2img_preview = gr.Image(elem_id='img2img_preview', visible=False)
                 setup_progressbar(progressbar, img2img_preview, 'img2img')
-
+        gr.HTML(value="<p>Choose a reference image, then draw a mask over the region you want to modify</p>")
         with gr.Row().style(equal_height=True):
 
             # Inpaint panel
@@ -725,13 +725,16 @@ def create_ui(wrap_gradio_gpu_call):
             with gr.Accordion("Advanced settings", open=False):
                 # TODO Reorder params
 
-                seed, reuse_seed, subseed, reuse_subseed, subseed_strength, seed_resize_from_h, seed_resize_from_w, seed_checkbox = create_seed_inputs()
-
-                mask_blur = gr.Slider(label='Mask blur', minimum=0, maximum=64, step=1, value=4)
-                with gr.Row():
-                    inpaint_full_res = gr.Checkbox(label='Inpaint at full resolution', value=True)
-                    inpaint_full_res_padding = gr.Slider(label='Inpaint at full resolution padding, pixels', minimum=0, maximum=256, step=4, value=100)
+                batch_size = gr.Slider(minimum=1, maximum=8, step=1, label='Number of variations', value=4)
+                mask_blur = gr.Slider(label='Blend', minimum=0, maximum=64, step=1, value=20)
+                inpaint_full_res_padding = gr.Slider(label='Context', minimum=0, maximum=256, step=4, value=100)
                 
+                seed, reuse_seed, subseed, reuse_subseed, subseed_strength, seed_resize_from_h, seed_resize_from_w, seed_checkbox = create_seed_inputs()
+                
+                with gr.Row():
+                    restore_faces = gr.Checkbox(label='Restore faces', value=False, visible=len(shared.face_restorers) > 1)
+                    inpaint_full_res = gr.Checkbox(label='Inpaint at full resolution', value=True)
+                    
                 with gr.Group():
                     width = gr.Slider(minimum=64, maximum=2048, step=64, label="Width", value=512)
                     height = gr.Slider(minimum=64, maximum=2048, step=64, label="Height", value=512)
@@ -739,12 +742,12 @@ def create_ui(wrap_gradio_gpu_call):
                 steps = gr.Slider(minimum=1, maximum=150, step=1, label="Sampling Steps", value=20)
 
                 with gr.Row():
-                    restore_faces = gr.Checkbox(label='Restore faces', value=False, visible=len(shared.face_restorers) > 1)
+                    
                     tiling = gr.Checkbox(label='Tiling', value=False)
 
                 with gr.Row():
                     batch_count = gr.Slider(minimum=1, maximum=cmd_opts.max_batch_count, step=1, label='Batch count', value=1)
-                    batch_size = gr.Slider(minimum=1, maximum=8, step=1, label='Batch size', value=1)
+                    
 
                 with gr.Row():
                     mask_mode = gr.Radio(label="Mask mode", show_label=False, choices=["Draw mask", "Upload mask"], type="index", value="Draw mask", elem_id="mask_mode")
@@ -773,6 +776,8 @@ def create_ui(wrap_gradio_gpu_call):
 
                 with gr.Group():
                     custom_inputs = modules.scripts.scripts_img2img.setup_ui(is_img2img=True)
+
+                submit_btn = gr.Button("Open extra features")
 
 
             connect_reuse_seed(seed, reuse_seed, generation_info, dummy_component, is_subseed=False)
@@ -1320,6 +1325,7 @@ def create_ui(wrap_gradio_gpu_call):
                         with gr.TabItem(label, id=ifid, visible=True):
                             interface.render()
 
+        # submit_btn.click(lambda: output_col.update(visible=False), inputs=None, outputs=None)
 
         if os.path.exists(os.path.join(script_path, "notification.mp3")):
             audio_notification = gr.Audio(interactive=False, value=os.path.join(script_path, "notification.mp3"), elem_id="audio_notification", visible=False)
