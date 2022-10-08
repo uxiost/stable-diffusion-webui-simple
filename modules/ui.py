@@ -453,7 +453,7 @@ def my_create_toprow(is_img2img):
             with gr.Row():
                 with gr.Column(scale=80):
                     with gr.Row():
-                        prompt = gr.Textbox(label="Prompt", elem_id=f"{id_part}_prompt", show_label=False, placeholder="Prompt", lines=2)
+                        prompt = gr.Textbox(label="Prompt", elem_id=f"{id_part}_prompt", show_label=False, placeholder='"Short sleeved", "Zip", "Belt in the style of Versace" ...', lines=2)
 
                 with gr.Column(scale=1, elem_id="roll_col"):
                     # roll = gr.Button(value=art_symbol, elem_id="roll", visible=len(shared.artist_db.artists) > 0)
@@ -674,6 +674,7 @@ def create_ui(wrap_gradio_gpu_call):
             token_button.click(fn=update_token_counter, inputs=[txt2img_prompt, steps], outputs=[token_counter])
 
     with gr.Blocks(analytics_enabled=False) as img2img_interface:
+        gr.HTML(value="<p>Write your prompt: </p>")
         # img2img_prompt, roll, img2img_prompt_style, img2img_negative_prompt, img2img_prompt_style2, submit, img2img_interrogate, img2img_prompt_style_apply, img2img_save_style, paste, token_counter, token_button = create_toprow(is_img2img=True)
         img2img_prompt, roll, img2img_prompt_style, img2img_negative_prompt, img2img_prompt_style2, submit, img2img_interrogate, img2img_prompt_style_apply, img2img_save_style, paste, token_counter, token_button = my_create_toprow(is_img2img=True)
         with gr.Row(elem_id='img2img_progress_row'):
@@ -688,7 +689,7 @@ def create_ui(wrap_gradio_gpu_call):
         with gr.Row().style(equal_height=True):
 
             # Inpaint panel
-            with gr.Column(variant='panel'):
+            with gr.Column(variant='panel', elem_id='mode_img2img'): #mode_img2img as elem_id is critical for js to work
 
                 # with gr.Tabs(elem_id="mode_img2img") as tabs_img2img_mode:
                 #     with gr.TabItem('Inpaint', id='inpaint'):
@@ -713,11 +714,11 @@ def create_ui(wrap_gradio_gpu_call):
                 #         button_id = "hidden_element" if shared.cmd_opts.hide_ui_dir_config else 'open_folder'
                 #         open_img2img_folder = gr.Button(folder_symbol, elem_id=button_id)
 
-        # Info
-        with gr.Row().style(equal_height=False):
-            with gr.Group():
-                html_info = gr.HTML()
-                generation_info = gr.Textbox(visible=False)
+                # Info
+                with gr.Row().style(equal_height=False):
+                    with gr.Group():
+                        html_info = gr.HTML()
+                        generation_info = gr.Textbox(visible=False)
 
         # Settings
         with gr.Row().style(equal_height=False):
@@ -858,6 +859,7 @@ def create_ui(wrap_gradio_gpu_call):
                     html_info,
                 ]
             )
+
             # Buttons deactivation
             # roll.click(
             #     fn=roll_artist,
@@ -1278,8 +1280,8 @@ def create_ui(wrap_gradio_gpu_call):
             column.__exit__()
 
     interfaces = [
+        # (img2img_interface, "img2img", "img2img"),
         (txt2img_interface, "txt2img", "txt2img"),
-        (img2img_interface, "img2img", "img2img"),
         (extras_interface, "Extras", "extras"),
         (pnginfo_interface, "PNG Info", "pnginfo"),
         (modelmerger_interface, "Checkpoint Merger", "modelmerger"),
@@ -1303,33 +1305,21 @@ def create_ui(wrap_gradio_gpu_call):
         
         settings_interface.gradio_ref = demo
 
+        # submit_btn = gr.Button("Submit")
+        # submit_btn.click(lambda: print('Clicked submit'), inputs=None, outputs=None)
+
         with gr.Tabs():
             with gr.TabItem('Inpainting demo', id='maininpaint', visible=True):
-                    img2img_interface.render()
+                img2img_interface.render()
 
         # Hide the rest of interfaces
-            submit_btn = gr.Button("Submit")
-            with gr.Column(visible=False) as output_col:
-                with gr.Accordion("Extra", open=False) as accordion:
-                    with gr.Tabs() as tabs:
-                        for interface, label, ifid in interfaces:
-                            with gr.TabItem(label, id=ifid, visible=True):
-                                interface.render()
-                                # interface.update(visible=False)
-                    #     accordion.update(visible=False)
-                    # accordion.update(visible=False)
-        
-            # def submit(l):
-            #     return {output_col: gr.update(visible=False)}
+        with gr.Column(visible=False) as output_col:
+            with gr.Accordion("Extra", open=True) as accordion:
+                with gr.Tabs() as tabs:
+                    for interface, label, ifid in interfaces:
+                        with gr.TabItem(label, id=ifid, visible=True):
+                            interface.render()
 
-            # l=1
-            # submit_btn.click(
-            #     submit,
-            #     [l],
-            #     [output_col],
-            # )
-
-            submit_btn.click(lambda: output_col.update(visible=True), inputs=None, outputs=output_col)
 
         if os.path.exists(os.path.join(script_path, "notification.mp3")):
             audio_notification = gr.Audio(interactive=False, value=os.path.join(script_path, "notification.mp3"), elem_id="audio_notification", visible=False)

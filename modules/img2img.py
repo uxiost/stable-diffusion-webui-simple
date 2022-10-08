@@ -138,6 +138,8 @@ def myimg2img(mode: int, prompt: str, negative_prompt: str, prompt_style: str, p
     is_inpaint = True
     is_batch = False
 
+    print('Calling custom img2img')
+
     if is_inpaint:
         if mask_mode == 0:
             image = init_img_with_mask['image']
