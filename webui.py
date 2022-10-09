@@ -22,6 +22,7 @@ import modules.shared as shared
 import modules.txt2img
 
 import modules.ui
+import modules.myui
 from modules import devices
 from modules import modelloader
 from modules.paths import script_path
@@ -89,7 +90,10 @@ def webui():
 
     while 1:
 
-        demo = modules.ui.create_ui(wrap_gradio_gpu_call=wrap_gradio_gpu_call)
+        if cmd_opts.classic:
+            demo = modules.ui.create_ui(wrap_gradio_gpu_call=wrap_gradio_gpu_call)
+        else:
+            demo = modules.myui.create_ui(wrap_gradio_gpu_call=wrap_gradio_gpu_call)
         
         demo.launch(
             share=cmd_opts.share,
