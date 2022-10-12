@@ -453,7 +453,7 @@ def my_create_toprow(is_img2img):
             with gr.Row():
                 with gr.Column(scale=80):
                     with gr.Row():
-                        prompt = gr.Textbox(label="Prompt", elem_id=f"{id_part}_prompt", show_label=False, placeholder='For example "Long sleeved", "High neck with zip", "Belt in the style of Versace" or "Balenciage leather bag"', lines=2)
+                        prompt = gr.Textbox(label="Prompt", elem_id=f"{id_part}_prompt", show_label=False, placeholder='For example "Long sleeved", "High neck with zip", "Belt in the style of Versace" or "Balenciaga leather bag"', lines=2)
 
                 with gr.Column(scale=1, elem_id="roll_col"):
                     # roll = gr.Button(value=art_symbol, elem_id="roll", visible=len(shared.artist_db.artists) > 0)
@@ -694,7 +694,6 @@ def create_ui(wrap_gradio_gpu_call):
                 # with gr.Tabs(elem_id="mode_img2img") as tabs_img2img_mode:
                 #     with gr.TabItem('Inpaint', id='inpaint'):
                 init_img_with_mask = gr.Image(label="Image for inpainting with mask",  show_label=False, elem_id="img2maskimg", source="upload", interactive=True, type="pil", tool="sketch", image_mode="RGBA")
-
                 init_img_inpaint = gr.Image(label="Image for img2img", show_label=False, source="upload", interactive=True, type="pil", visible=False, elem_id="img_inpaint_base")
                 init_mask_inpaint = gr.Image(label="Mask", source="upload", interactive=True, type="pil", visible=False, elem_id="img_inpaint_mask")
 
