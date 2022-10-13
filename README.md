@@ -33,7 +33,7 @@ Steps: 30, Sampler: Euler a, CFG scale: 7, Seed: 4251741935, Size: 832x576, Mode
 
 # TODO
 - [x] Do not display negative prompt text under image
-- [ ] Open ports
+- [ ] Open ports, try ngrok fix
 - [ ] Understand blur, mask etc
 - [x] Set cool default working values
 - [x] Update description
