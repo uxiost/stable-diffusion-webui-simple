@@ -30,6 +30,41 @@ Negative prompt: painting, (((deformed))), overexposed, 3D, render, animation, c
 
 Steps: 30, Sampler: Euler a, CFG scale: 7, Seed: 4251741935, Size: 832x576, Model hash: 7460a6fa, Denoising strength: 0.75, Mask blur: 4
 
+## https://www.reddit.com/r/StableDiffusion/comments/xxh5y6/dreambooth_consistently_blows_me_away_results/
+All were 20 steps, Euler a, CFG scale 7.
+
+1st and 4th images:
+
+cyberpunk portrait of <DreamBooth token> as a cyborg, diffuse lighting, fantasy, intricate, elegant, highly detailed, lifelike, photorealistic, digital painting, artstation, illustration, concept art, smooth, sharp focus, art by john collier and albert aublet and krenz cushart and skunkyfly and alphonse mucha
+
+Negative prompt: (((extra arms))), (((extra legs))), mutated hands, (fused fingers), (too many fingers), (((long neck))), (cross-eyed), (closed eyes)
+
+2nd Image:
+
+portrait of <DreamBooth token> as a blue ajah aes sedai in wheel of time by rene magritte and laurie greasley, etching by gustave dore, colorful flat surreal, ethereal, intricate, sharp focus, illustration, highly detailed, digital painting, concept art, masterpiece
+
+Negative prompt: (((extra arms))), (((extra legs))), mutated hands, (fused fingers), (too many fingers), (((long neck))), (cross-eyed), (closed eyes), (mutated)
+
+3rd image:
+
+portrait of <DreamBooth token> as a blue ajah aes sedai in wheel of time, digital painting, cinematic lighting, art by mark brooks and greg rutkowski
+
+Negative prompt: (((extra arms))), (((extra legs))), mutated hands, (fused fingers), (too many fingers), (((long neck))), (cross-eyed), (closed eyes), (mutated)
+
+5th image:
+
+portrait of <DreamBooth token> as a knight wearing beautiful blue armor and a crown, fantasy concept art, artstation trending, highly detailed, fire and galaxies in the background, art by wlop, greg rutkowski
+
+Negative prompt: (((extra arms))), (((extra legs))), mutated hands, (fused fingers), (too many fingers), (((long neck))), (cross-eyed),
+
+body out of frame, (closed eyes), (mutated)
+
+6th image:
+
+cyberpunk portrait of <DreamBooth token> as a cyborg, sci fi concept art, dramatic, artstation trending, highly detailed
+
+Negative prompt: (((extra arms))), (((extra legs))), mutated hands, (fused fingers), (too many fingers), (((long neck))), (cross-eyed), (closed eyes)
+
 
 ## https://lexica.art/?
 
