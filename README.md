@@ -5,6 +5,46 @@ A browser interface based on Gradio library for Stable Diffusion.
 
 Check the [custom scripts](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Custom-Scripts) wiki page for extra scripts developed by users.
 
+# Launch
+```
+python launch.py --gradio-debug
+python launch.py --share --gradio-debug --gradio-auth me:qwerty
+python launch.py --gradio-debug --listen --classic
+
+```
+# Prompts
+ // "img2img/Negative prompt/value": "cartoon, 3d, (disfigured), (bad art), (deformed), (poorly drawn), (extra limbs), strange colours, blurry, boring, sketch, lacklustre, repetitive, cropped, hands",
+
+## https://www.reddit.com/r/StableDiffusion/comments/xttbc5/gothic_characters/
+close up film photo, portrait of a winter gothic woman, leather, gothic jewellery, flowing cloak, elegant pose, atmospheric lighting, cinematic composition, detailed, art by daniela uhlig and brad rigney and adam hughe
+
+Negative :
+cartoon, 3d, (disfigured), (bad art), (deformed), (poorly drawn), (extra limbs), strange colours, blurry, boring, sketch, lacklustre, repetitive, cropped, hands
+
+teps: 45, Sampler: Euler a, CFG scale: 12, Seed: 1541804686, Face restoration: CodeFormer, Size: 512x768, Model hash: 7460a6fa, Denoising strength: 0.75
+
+## https://www.reddit.com/r/StableDiffusion/comments/xyc9cd/turtleybug/
+Prompt: award winning high resolution photo of a giant tortoise/((ladybird)) hybrid, [trending on artstation]
+
+Negative prompt: painting, (((deformed))), overexposed, 3D, render, animation, cartoon, cartoon look, drawing, disfigured, mutation, mutated
+
+Steps: 30, Sampler: Euler a, CFG scale: 7, Seed: 4251741935, Size: 832x576, Model hash: 7460a6fa, Denoising strength: 0.75, Mask blur: 4
+
+
+## https://lexica.art/?
+
+# TODO
+- [x] Do not display negative prompt text under image
+- [x] Open ports, try ngrok fix
+- [ ] Understand blur, mask etc
+- [x] Set cool default working values
+- [x] Update description
+- [ ] Add tutorial GIF
+- [x] Add default propmt style?
+- [ ] Investigate color correction
+- [ ] Example
+https://www.zara.com/es/en/rock-shoulder-bag-with-mirrored-details-p16090010.html?v1=203158021&v2=2111785
+
 ## Features
 [Detailed feature showcase with images](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Features):
 - Original txt2img and img2img modes
