@@ -9,6 +9,8 @@ Check the [custom scripts](https://github.com/AUTOMATIC1111/stable-diffusion-web
 ```
 python launch.py --gradio-debug
 python launch.py --share --gradio-debug --gradio-auth me:qwerty
+python launch.py --gradio-debug --listen --classic
+
 ```
 # Prompts
  // "img2img/Negative prompt/value": "cartoon, 3d, (disfigured), (bad art), (deformed), (poorly drawn), (extra limbs), strange colours, blurry, boring, sketch, lacklustre, repetitive, cropped, hands",
@@ -33,7 +35,7 @@ Steps: 30, Sampler: Euler a, CFG scale: 7, Seed: 4251741935, Size: 832x576, Mode
 
 # TODO
 - [x] Do not display negative prompt text under image
-- [ ] Open ports, try ngrok fix
+- [x] Open ports, try ngrok fix
 - [ ] Understand blur, mask etc
 - [x] Set cool default working values
 - [x] Update description
