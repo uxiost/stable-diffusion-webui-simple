@@ -36,11 +36,10 @@ class Upscaler:
         self.half = not modules.shared.cmd_opts.no_half
         self.pre_pad = 0
         self.mod_scale = None
-
-        if self.model_path is None and self.name:
+        if self.name is not None and create_dirs:
             self.model_path = os.path.join(models_path, self.name)
-        if self.model_path and create_dirs:
-            os.makedirs(self.model_path, exist_ok=True)
+            if not os.path.exists(self.model_path):
+                os.makedirs(self.model_path)
 
         try:
             import cv2

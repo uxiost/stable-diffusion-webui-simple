@@ -4,7 +4,7 @@ fairscale==0.4.4
 fonts
 font-roboto
 gfpgan
-gradio==3.4.1
+gradio==3.4b3
 invisible-watermark
 numpy
 omegaconf
@@ -22,4 +22,3 @@ clean-fid
 resize-right
 torchdiffeq
 kornia
-lark

@@ -8,13 +8,15 @@ import torch
 from basicsr.utils.download_util import load_file_from_url
 
 import modules.upscaler
-from modules import devices, modelloader
+from modules import shared, modelloader
+from modules.paths import models_path
 from modules.scunet_model_arch import SCUNet as net
 
 
 class UpscalerScuNET(modules.upscaler.Upscaler):
     def __init__(self, dirname):
         self.name = "ScuNET"
+        self.model_path = os.path.join(models_path, self.name)
         self.model_name = "ScuNET GAN"
         self.model_name2 = "ScuNET PSNR"
         self.model_url = "https://github.com/cszn/KAIR/releases/download/v1.0/scunet_color_real_gan.pth"
@@ -49,12 +51,12 @@ class UpscalerScuNET(modules.upscaler.Upscaler):
         if model is None:
             return img
 
-        device = devices.device_scunet
+        device = shared.device
         img = np.array(img)
         img = img[:, :, ::-1]
         img = np.moveaxis(img, 2, 0) / 255
         img = torch.from_numpy(img).float()
-        img = img.unsqueeze(0).to(device)
+        img = img.unsqueeze(0).to(shared.device)
 
         img = img.to(device)
         with torch.no_grad():
@@ -67,7 +69,7 @@ class UpscalerScuNET(modules.upscaler.Upscaler):
         return PIL.Image.fromarray(output, 'RGB')
 
     def load_model(self, path: str):
-        device = devices.device_scunet
+        device = shared.device
         if "http" in path:
             filename = load_file_from_url(url=self.model_url, model_dir=self.model_path, file_name="%s.pth" % self.name,
                                           progress=True)
