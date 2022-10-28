@@ -9,7 +9,9 @@ Check the [custom scripts](https://github.com/AUTOMATIC1111/stable-diffusion-web
 ```
 python launch.py --gradio-debug
 python launch.py --share --gradio-debug --gradio-auth me:qwerty
-python launch.py --gradio-debug --listen --classic
+
+python launch.py --gradio-debug --listen --classic # or
+python launch.py --gradio-debug --listen # after checkout to original branch 
 
 ```
 # Prompts
@@ -67,6 +69,9 @@ Negative prompt: (((extra arms))), (((extra legs))), mutated hands, (fused finge
 
 
 ## https://lexica.art/?
+
+# Dreambooth
+https://starbyface.com/
 
 # TODO
 - [x] Do not display negative prompt text under image
