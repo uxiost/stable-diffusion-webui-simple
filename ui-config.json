@@ -77,7 +77,7 @@
     "customscript/xy_grid.py/txt2img/Keep -1 for seeds/value": false,
     "img2img/Prompt/visible": true,
     "img2img/Prompt/value": "",
-    "img2img/Negative prompt/visible": false,
+    "img2img/Negative prompt/visible": true,
     "img2img/Negative prompt/value": "",
     "img2img/Mask blur/visible": true,
     "img2img/Mask blur/value": 20,
