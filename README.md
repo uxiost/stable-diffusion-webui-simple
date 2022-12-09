@@ -9,6 +9,8 @@ Check the [custom scripts](https://github.com/AUTOMATIC1111/stable-diffusion-web
 ```
 python launch.py --gradio-debug
 python launch.py --share --gradio-debug --gradio-auth me:qwerty
+python launch.py --gradio-debug --listen --classic
+
 ```
 # Prompts
  // "img2img/Negative prompt/value": "cartoon, 3d, (disfigured), (bad art), (deformed), (poorly drawn), (extra limbs), strange colours, blurry, boring, sketch, lacklustre, repetitive, cropped, hands",
@@ -31,13 +33,16 @@ Steps: 30, Sampler: Euler a, CFG scale: 7, Seed: 4251741935, Size: 832x576, Mode
 
 ## https://lexica.art/?
 
-
-# TODO:
-- Set cool default working values
-- Update description
-- Add tutorial GIF
-- Add default propmt style?
-- Example
+# TODO
+- [x] Do not display negative prompt text under image
+- [x] Open ports, try ngrok fix
+- [ ] Understand blur, mask etc
+- [x] Set cool default working values
+- [x] Update description
+- [ ] Add tutorial GIF
+- [x] Add default propmt style?
+- [ ] Investigate color correction
+- [ ] Example
 https://www.zara.com/es/en/rock-shoulder-bag-with-mirrored-details-p16090010.html?v1=203158021&v2=2111785
 
 ## Features

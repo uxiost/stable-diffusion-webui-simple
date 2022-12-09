@@ -77,8 +77,13 @@
     "customscript/xy_grid.py/txt2img/Keep -1 for seeds/value": false,
     "img2img/Prompt/visible": true,
     "img2img/Prompt/value": "",
+
     "img2img/Negative prompt/visible": true,
     "img2img/Negative prompt/value": "",
+
+    // "img2img/Negative prompt/visible": false,
+    // "img2img/Negative prompt/value": "cartoon, 3d, (disfigured), (bad art), (deformed), (poorly drawn), (extra limbs), strange colours, blurry, boring, sketch, lacklustre, repetitive, cropped, hands",
+
     "img2img/Mask blur/visible": true,
     "img2img/Mask blur/value": 20,
     "img2img/Mask blur/minimum": 0,
