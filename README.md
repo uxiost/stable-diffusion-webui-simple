@@ -6,10 +6,11 @@ A browser interface based on Gradio library for Stable Diffusion.
 Check the [custom scripts](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Custom-Scripts) wiki page for extra scripts developed by users.
 
 # Launch
+Make sure venv is active venv\Scripts\activate
 ```
 python launch.py --gradio-debug
 python launch.py --share --gradio-debug --gradio-auth me:qwerty
-python launch.py --gradio-debug --listen --classic
+python launch.py --gradio-debug --listen --classic --ckpt sd-v1-4.ckpt
 
 ```
 # Prompts
