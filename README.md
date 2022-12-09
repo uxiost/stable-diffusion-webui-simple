@@ -12,6 +12,11 @@ python launch.py --share --gradio-debug --gradio-auth me:qwerty
 python launch.py --gradio-debug --listen --classic
 
 ```
+
+// "img2img/Negative prompt/visible": false,
+// "img2img/Negative prompt/value": "cartoon, 3d, (disfigured), (bad art), (deformed), (poorly drawn), (extra limbs), strange colours, blurry, boring, sketch, lacklustre, repetitive, cropped, hands",
+
+
 # Prompts
  // "img2img/Negative prompt/value": "cartoon, 3d, (disfigured), (bad art), (deformed), (poorly drawn), (extra limbs), strange colours, blurry, boring, sketch, lacklustre, repetitive, cropped, hands",
 
