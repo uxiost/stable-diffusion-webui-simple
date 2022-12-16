@@ -156,59 +156,65 @@ def myimg2img(mode: int, prompt: str, negative_prompt: str, prompt_style: str, p
 
     assert 0. <= denoising_strength <= 1., 'can only work with strength in [0.0, 1.0]'
 
-    p = StableDiffusionProcessingImg2Img(
-        sd_model=shared.sd_model,
-        outpath_samples=opts.outdir_samples or opts.outdir_img2img_samples,
-        outpath_grids=opts.outdir_grids or opts.outdir_img2img_grids,
-        prompt=prompt,
-        negative_prompt=negative_prompt,
-        styles=[prompt_style, prompt_style2],
-        seed=seed,
-        subseed=subseed,
-        subseed_strength=subseed_strength,
-        seed_resize_from_h=seed_resize_from_h,
-        seed_resize_from_w=seed_resize_from_w,
-        seed_enable_extras=seed_enable_extras,
-        sampler_index=sampler_index,
-        batch_size=batch_size,
-        n_iter=n_iter,
-        steps=steps,
-        cfg_scale=cfg_scale,
-        width=width,
-        height=height,
-        restore_faces=restore_faces,
-        tiling=tiling,
-        init_images=[image],
-        mask=mask,
-        mask_blur=mask_blur,
-        inpainting_fill=inpainting_fill,
-        resize_mode=resize_mode,
-        denoising_strength=denoising_strength,
-        inpaint_full_res=inpaint_full_res,
-        inpaint_full_res_padding=inpaint_full_res_padding,
-        inpainting_mask_invert=inpainting_mask_invert,
-    )
+    # Launch UI, capture parameters
+    import json
+    from io import BytesIO
+    import base64
+    import requests
+    import io
+    from PIL import Image, PngImagePlugin
+    import pickle
 
-    if shared.cmd_opts.enable_console_prompts:
-        print(f"\nimg2img: {prompt}", file=shared.progress_print_out)
+    # Convert Image to Base64 
+    def im_2_b64(image):
+        buff = BytesIO()
+        image.save(buff, format="JPEG")
+        img_str = base64.b64encode(buff.getvalue()).decode('utf-8')
+        return img_str
 
-    p.extra_generation_params["Mask blur"] = mask_blur
+    payload = {
+      #  'sd_model': shared.sd_model,
+        'outpath_samples': opts.outdir_samples or opts.outdir_img2img_samples,
+        'outpath_grids': opts.outdir_grids or opts.outdir_img2img_grids,
+        'prompt': prompt,
+        'negative_prompt': negative_prompt,
+        'styles': [prompt_style, prompt_style2],
+        'seed': seed,
+        'subseed': subseed,
+        'subseed_strength': subseed_strength,
+        'seed_resize_from_h': seed_resize_from_h,
+        'seed_resize_from_w': seed_resize_from_w,
+        'seed_enable_extras': seed_enable_extras,
+       # 'sampler_index': sampler_index,
+        'batch_size': batch_size,
+        'n_iter': n_iter,
+        'steps': steps,
+        'cfg_scale': cfg_scale,
+        'width': width,
+        'height': height,
+        'restore_faces': restore_faces,
+        'tiling': tiling,
+        'init_images': [im_2_b64(image)],
+        'mask': im_2_b64(mask),
+        'mask_blur': mask_blur,
+        'inpainting_fill': inpainting_fill,
+        'resize_mode': resize_mode,
+        'denoising_strength': denoising_strength,
+        'inpaint_full_res': inpaint_full_res,
+        'inpaint_full_res_padding': inpaint_full_res_padding,
+        'inpainting_mask_invert': inpainting_mask_invert,
+    }
+    print('Sending request')
 
-    if is_batch:
-        assert not shared.cmd_opts.hide_ui_dir_config, "Launched with --hide-ui-dir-config, batch img2img disabled"
+    url = "http://127.0.0.1:7861"
 
-        process_batch(p, img2img_batch_input_dir, img2img_batch_output_dir, args)
+    response = requests.post(url=f'{url}/sdapi/v1/img2img', json=payload)
+    response_api = response.json()
 
-        processed = Processed(p, [], p.seed, "")
-    else:
-        processed = modules.scripts.scripts_img2img.run(p, *args)
-        if processed is None:
-            processed = process_images(p)
+    print(response_api['info'])
 
-    shared.total_tqdm.clear()
+    processed_images = [Image.open(io.BytesIO(base64.b64decode(i.split(",",1)[0]))) for i in response_api['images']]
+    generation_info_js = response_api['info']
+    processed_info = json.loads(generation_info_js)['infotexts'][0]
 
-    generation_info_js = processed.js()
-    if opts.samples_log_stdout:
-        print(generation_info_js)
-
-    return processed.images, generation_info_js, plaintext_to_html(processed.info)
+    return processed_images, generation_info_js, plaintext_to_html(processed_info)

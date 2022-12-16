@@ -13,6 +13,22 @@ python launch.py --share --gradio-debug --gradio-auth me:qwerty
 python launch.py --gradio-debug --listen --classic --ckpt sd-v1-4.ckpt
 
 ```
+## API Launch
+Frontend
+```
+python launch.py --gradio-debug --listen --ckpt sd-v1-4.ckpt
+
+--ui-debug-mode
+--nowebui
+```
+Backend
+```
+python launch.py --gradio-debug --listen --nowebui --api --port 7861 --ckpt sd-v1-4.ckpt
+
+--ui-debug-mode
+
+```
+
 
 // "img2img/Negative prompt/visible": false,
 // "img2img/Negative prompt/value": "cartoon, 3d, (disfigured), (bad art), (deformed), (poorly drawn), (extra limbs), strange colours, blurry, boring, sketch, lacklustre, repetitive, cropped, hands",
